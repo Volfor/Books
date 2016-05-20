@@ -8,5 +8,7 @@ public class Constants {
     public static final int MAX_RESULTS = 20;
 
     public static final String BOOK_KEY = "book";
+    public static final String IS_FROM_CART = "is from cart";
+
 
 }

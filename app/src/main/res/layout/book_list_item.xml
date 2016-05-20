@@ -2,22 +2,25 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="2.5dp"
+    android:layout_marginRight="2.5dp"
+    android:layout_marginTop="2dp"
+    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/book_image"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
             android:src="@android:drawable/btn_star_big_on" />
 
         <TextView
@@ -25,25 +28,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/book_image"
-            android:background="@color/colorPrimaryDark"
-            android:paddingBottom="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:paddingTop="8dp"
             android:text="Book title"
-            android:textColor="@color/colorAccent"
-            android:textSize="13sp" />
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/book_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/book_title"
-            android:background="@color/colorPrimaryDark"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
             android:text="Author"
-            android:textColor="@color/colorAccent"
             android:textSize="13sp" />
-
     </RelativeLayout>
-
 </android.support.v7.widget.CardView>

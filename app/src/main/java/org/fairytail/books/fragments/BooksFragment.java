@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.fairytail.books.Constants;
@@ -37,8 +38,12 @@ public class BooksFragment extends BaseFragment {
     @BindView(R.id.books_recycler)
     RecyclerView recyclerView;
 
+    @BindView(R.id.search_smth)
+    LinearLayout searchSmth;
+
     private BooksAdapter adapter;
     private List<Book> items = new ArrayList<>();
+    private boolean alreadyLoaded = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,13 +58,23 @@ public class BooksFragment extends BaseFragment {
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(false);
         }
-
         return inflater.inflate(R.layout.fragment_books, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState == null && !alreadyLoaded) {
+            alreadyLoaded = true;
+            searchSmth.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            if (!items.isEmpty()) {
+                recyclerView.setVisibility(View.VISIBLE);
+                searchSmth.setVisibility(View.GONE);
+            }
+        }
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -99,12 +114,12 @@ public class BooksFragment extends BaseFragment {
     @Subscribe
     public void onBooksLoaded(OnLoadedEvent e) {
         items = e.items.getItems();
-        Toast.makeText(getContext(), "Loaded " + items.size() + " items", Toast.LENGTH_LONG).show();
-
         if (items != null && !items.isEmpty()) {
             adapter.setItems(items);
+            searchSmth.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
-            //TODO: show nothing found image
+            Toast.makeText(getContext(), R.string.no_results, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -116,7 +131,7 @@ public class BooksFragment extends BaseFragment {
 
     @Subscribe
     public void onBooksLoadingFailed(OnLoadingErrorEvent e) {
-        Toast.makeText(getContext(), "Error: " + e.message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.error, Toast.LENGTH_LONG).show();
         Log.e(Constants.LOG_TAG, e.message);
     }
 

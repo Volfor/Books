@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search books...");
+        searchView.setQueryHint(getString(R.string.search_books));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

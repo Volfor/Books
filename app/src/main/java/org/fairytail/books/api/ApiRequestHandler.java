@@ -12,7 +12,6 @@ import org.fairytail.books.models.BookItems;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,8 +32,6 @@ public class ApiRequestHandler {
                         if (response.isSuccessful()) {
                             EventBus.getDefault().post(new OnLoadedEvent(response.body()));
                         } else {
-                            int statusCode = response.code();
-                            ResponseBody errorBody = response.errorBody();
                             EventBus.getDefault().post(new OnLoadingErrorEvent(response.errorBody().toString()));
                         }
                     }
@@ -60,8 +57,6 @@ public class ApiRequestHandler {
                 if (response.isSuccessful()) {
                     EventBus.getDefault().post(new OnMoreLoadedEvent(response.body()));
                 } else {
-                    int statusCode = response.code();
-                    ResponseBody errorBody = response.errorBody();
                     EventBus.getDefault().post(new OnLoadingErrorEvent(response.errorBody().toString()));
                 }
             }

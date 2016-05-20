@@ -2,4 +2,12 @@
     <string name="app_name">Books</string>
     <string name="search">Search</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="search_something">Search something…</string>
+    <string name="no_results">No results</string>
+    <string name="error">Error</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="added_to_cart">Added to cart</string>
+    <string name="remove_from_cart">Remove from cart</string>
+    <string name="removed_from_cart">Removed from cart</string>
+    <string name="search_books">"Search books…"</string>
 </resources>

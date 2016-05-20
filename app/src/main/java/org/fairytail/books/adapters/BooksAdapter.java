@@ -85,10 +85,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
                 author.setText(book.getVolumeInfo().getAuthors().get(0).getString());
             }
             if (book.getVolumeInfo().getImageLinks() != null) {
+                String uri = book.getVolumeInfo().getImageLinks().getThumbnail();
+                uri = uri.replace("&edge=curl", "");
+
                 Glide.with(cover.getContext())
-                        .load(book.getVolumeInfo().getImageLinks().getThumbnail())
+                        .load(uri)
                         .fitCenter()
-//                    .placeholder(R.drawable.loading_spinner)
+                        .error(R.drawable.image_not_available)
                         .crossFade()
                         .into(cover);
             }
