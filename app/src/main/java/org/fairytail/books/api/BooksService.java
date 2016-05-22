@@ -9,10 +9,9 @@ import retrofit2.http.Query;
 public interface BooksService {
 
     @GET("volumes")
-    Call<BookItems> search(@Query("q") String keywords, @Query("maxResults") int maxResults);
+    Call<BookItems> search(@Query("q") String keywords);
 
     @GET("volumes")
-    Call<BookItems> loadMore(@Query("q") String keywords, @Query("startIndex") int startIndex,
-                             @Query("maxResults") int maxResults);
+    Call<BookItems> loadMore(@Query("q") String keywords, @Query("startIndex") int startIndex);
 
 }

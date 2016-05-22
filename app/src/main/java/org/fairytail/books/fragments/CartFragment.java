@@ -50,21 +50,18 @@ public class CartFragment extends BaseFragment {
             recyclerView.setVisibility(View.VISIBLE);
         }
 
-        adapter = new BooksAdapter(result, new BooksAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.BOOK_KEY, result.get(position));
-                bundle.putBoolean(Constants.IS_FROM_CART, true);
+        adapter = new BooksAdapter(result, (v, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.BOOK_KEY, result.get(position));
+            bundle.putBoolean(Constants.IS_FROM_CART, true);
 
-                DetailsFragment detailsFragment = new DetailsFragment();
-                detailsFragment.setArguments(bundle);
+            DetailsFragment detailsFragment = new DetailsFragment();
+            detailsFragment.setArguments(bundle);
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, detailsFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
         recyclerView.setAdapter(adapter);
     }

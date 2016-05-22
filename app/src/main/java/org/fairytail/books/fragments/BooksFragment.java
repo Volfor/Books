@@ -80,20 +80,17 @@ public class BooksFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new BooksAdapter(items, new BooksAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.BOOK_KEY, items.get(position));
+        adapter = new BooksAdapter(items, (v, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.BOOK_KEY, items.get(position));
 
-                DetailsFragment detailsFragment = new DetailsFragment();
-                detailsFragment.setArguments(bundle);
+            DetailsFragment detailsFragment = new DetailsFragment();
+            detailsFragment.setArguments(bundle);
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, detailsFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         recyclerView.setAdapter(adapter);

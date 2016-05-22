@@ -17,7 +17,9 @@ import java.lang.reflect.Type;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -80,6 +82,16 @@ public class ApiClient {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    HttpUrl url = request.url()
+                            .newBuilder()
+                            .addQueryParameter("maxResults", String.valueOf(Constants.MAX_RESULTS))
+                            .build();
+                    request = request.newBuilder().url(url).build();
+
+                    return chain.proceed(request);
+                })
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -87,9 +99,9 @@ public class ApiClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
+
         booksService = retrofit.create(BooksService.class);
     }
-
 
     public BooksService getBooksService() {
         return booksService;
